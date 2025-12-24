@@ -1,0 +1,135 @@
+// Table assumption: load maven_marketing_challenge/silver_layer_marketing_data.csv as table 'Marketing'
+
+// Customers & basics
+Total Customers = COUNTROWS(Marketing)
+
+Web Purchases = SUM(Marketing[NumWebPurchases])
+Catalog Purchases = SUM(Marketing[NumCatalogPurchases])
+Store Purchases = SUM(Marketing[NumStorePurchases])
+Total Purchases = [Web Purchases] + [Catalog Purchases] + [Store Purchases]
+
+Web Visits = SUM(Marketing[NumWebVisitsMonth])
+Web Conversion Rate = DIVIDE([Web Purchases], [Web Visits])
+
+Total Spend =
+    SUM(Marketing[MntWines]) +
+    SUM(Marketing[MntFruits]) +
+    SUM(Marketing[MntMeatProducts]) +
+    SUM(Marketing[MntFishProducts]) +
+    SUM(Marketing[MntSweetProducts]) +
+    SUM(Marketing[MntGoldProds])
+
+Avg Income = AVERAGE(Marketing[Income])
+Average Age =
+    AVERAGEX(Marketing, YEAR(TODAY()) - Marketing[Year_Birth])
+Average Tenure (Months) = AVERAGE(Marketing[TenureMonths])
+
+// Product performance
+Spend Wines = SUM(Marketing[MntWines])
+Spend Fruits = SUM(Marketing[MntFruits])
+Spend Meat = SUM(Marketing[MntMeatProducts])
+Spend Fish = SUM(Marketing[MntFishProducts])
+Spend Sweet = SUM(Marketing[MntSweetProducts])
+Spend Gold = SUM(Marketing[MntGoldProds])
+
+Top Product by Spend =
+VAR vW = [Spend Wines]
+VAR vF = [Spend Fruits]
+VAR vM = [Spend Meat]
+VAR vFi = [Spend Fish]
+VAR vS = [Spend Sweet]
+VAR vG = [Spend Gold]
+RETURN
+    SWITCH(
+        TRUE(),
+        vW >= vF && vW >= vM && vW >= vFi && vW >= vS && vW >= vG, "Wines",
+        vM >= vW && vM >= vF && vM >= vFi && vM >= vS && vM >= vG, "Meat",
+        vF >= vW && vF >= vM && vF >= vFi && vF >= vS && vF >= vG, "Fruits",
+        vFi >= vW && vFi >= vF && vFi >= vM && vFi >= vS && vFi >= vG, "Fish",
+        vS >= vW && vS >= vF && vS >= vM && vS >= vFi && vS >= vG, "Sweet",
+        "Gold"
+    )
+
+// Campaign success
+Accepted Cmp1 Rate = AVERAGE(Marketing[AcceptedCmp1])
+Accepted Cmp2 Rate = AVERAGE(Marketing[AcceptedCmp2])
+Accepted Cmp3 Rate = AVERAGE(Marketing[AcceptedCmp3])
+Accepted Cmp4 Rate = AVERAGE(Marketing[AcceptedCmp4])
+Accepted Cmp5 Rate = AVERAGE(Marketing[AcceptedCmp5])
+Last Campaign Response Rate = AVERAGE(Marketing[Response])
+
+Best Campaign =
+VAR c1 = [Accepted Cmp1 Rate]
+VAR c2 = [Accepted Cmp2 Rate]
+VAR c3 = [Accepted Cmp3 Rate]
+VAR c4 = [Accepted Cmp4 Rate]
+VAR c5 = [Accepted Cmp5 Rate]
+VAR cr = [Last Campaign Response Rate]
+RETURN
+    SWITCH(
+        TRUE(),
+        c1 >= c2 && c1 >= c3 && c1 >= c4 && c1 >= c5 && c1 >= cr, "Campaign 1",
+        c2 >= c1 && c2 >= c3 && c2 >= c4 && c2 >= c5 && c2 >= cr, "Campaign 2",
+        c3 >= c1 && c3 >= c2 && c3 >= c4 && c3 >= c5 && c3 >= cr, "Campaign 3",
+        c4 >= c1 && c4 >= c2 && c4 >= c3 && c4 >= c5 && c4 >= cr, "Campaign 4",
+        c5 >= c1 && c5 >= c2 && c5 >= c3 && c5 >= c4 && c5 >= cr, "Campaign 5",
+        "Last Campaign"
+    )
+
+// Channels underperforming
+Store Share = AVERAGE(Marketing[Share_Store])
+Catalog Share = AVERAGE(Marketing[Share_Catalog])
+
+Underperforming Channel =
+VAR web = [Web Conversion Rate]
+VAR store = [Store Share]
+VAR catalog = [Catalog Share]
+RETURN
+    SWITCH(
+        TRUE(),
+        web <= store && web <= catalog, "Web",
+        store <= web && store <= catalog, "Store",
+        "Catalog"
+    )
+
+// Correlations with Web Purchases (Pearson)
+Corr(WebPurchases, WebVisits) =
+VAR n = COUNTROWS(Marketing)
+VAR sumX = SUM(Marketing[NumWebPurchases])
+VAR sumY = SUM(Marketing[NumWebVisitsMonth])
+VAR sumXY = SUMX(Marketing, Marketing[NumWebPurchases] * Marketing[NumWebVisitsMonth])
+VAR sumX2 = SUMX(Marketing, Marketing[NumWebPurchases] * Marketing[NumWebPurchases])
+VAR sumY2 = SUMX(Marketing, Marketing[NumWebVisitsMonth] * Marketing[NumWebVisitsMonth])
+RETURN DIVIDE(
+    (n * sumXY) - (sumX * sumY),
+    SQRT( ((n * sumX2) - (sumX * sumX)) * ((n * sumY2) - (sumY * sumY)) )
+)
+
+Corr(WebPurchases, Income) =
+VAR n = COUNTROWS(Marketing)
+VAR sumX = SUM(Marketing[NumWebPurchases])
+VAR sumY = SUM(Marketing[Income])
+VAR sumXY = SUMX(Marketing, Marketing[NumWebPurchases] * Marketing[Income])
+VAR sumX2 = SUMX(Marketing, Marketing[NumWebPurchases] * Marketing[NumWebPurchases])
+VAR sumY2 = SUMX(Marketing, Marketing[Income] * Marketing[Income])
+RETURN DIVIDE(
+    (n * sumXY) - (sumX * sumY),
+    SQRT( ((n * sumX2) - (sumX * sumX)) * ((n * sumY2) - (sumY * sumY)) )
+)
+
+Corr(WebPurchases, TotalSpend) =
+VAR n = COUNTROWS(Marketing)
+VAR sumX = SUM(Marketing[NumWebPurchases])
+VAR sumY = [Total Spend]
+VAR sumXY = SUMX(Marketing, Marketing[NumWebPurchases] *
+    (Marketing[MntWines] + Marketing[MntFruits] + Marketing[MntMeatProducts] + Marketing[MntFishProducts] + Marketing[MntSweetProducts] + Marketing[MntGoldProds]))
+VAR sumX2 = SUMX(Marketing, Marketing[NumWebPurchases] * Marketing[NumWebPurchases])
+VAR sumY2 =
+    SUMX(Marketing,
+        (Marketing[MntWines] + Marketing[MntFruits] + Marketing[MntMeatProducts] + Marketing[MntFishProducts] + Marketing[MntSweetProducts] + Marketing[MntGoldProds]) *
+        (Marketing[MntWines] + Marketing[MntFruits] + Marketing[MntMeatProducts] + Marketing[MntFishProducts] + Marketing[MntSweetProducts] + Marketing[MntGoldProds])
+    )
+RETURN DIVIDE(
+    (n * sumXY) - (sumX * sumY),
+    SQRT( ((n * sumX2) - (sumX * sumX)) * ((n * sumY2) - (sumY * sumY)) )
+)
