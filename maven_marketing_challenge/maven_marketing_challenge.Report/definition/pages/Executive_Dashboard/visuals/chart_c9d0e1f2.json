@@ -1,0 +1,46 @@
+{
+  "filepath": "maven_marketing_challenge/maven_marketing_challenge.Report/definition/pages/Executive_Dashboard/visuals/chart_c9d0e1f2.json",
+  "name": "chart_c9d0e1f2",
+  "displayName": "Web Purchase Correlation Drivers",
+  "config": {
+    "type": "ColumnChart",
+    "dataModel": {
+      "measures": [
+        "Corr(WebPurchases, WebVisits)",
+        "Corr(WebPurchases, Income)",
+        "Corr(WebPurchases, TotalSpend)"
+      ],
+      "table": "Marketing"
+    },
+    "categoryAxis": {
+      "labels": [
+        "Web Visits",
+        "Income",
+        "Total Spend"
+      ]
+    }
+  },
+  "formatting": {
+    "shadow": {
+      "visible": true,
+      "blur": 8,
+      "color": "#00000015",
+      "offsetX": 2,
+      "offsetY": 2
+    },
+    "visualBorder": {
+      "visible": true,
+      "radius": 8,
+      "color": "#FFFFFF",
+      "width": 1,
+      "backgroundColor": "#FFFFFF"
+    },
+    "padding": 10,
+    "title": {
+      "text": "Q1: Factors Related to Web Purchases",
+      "fontSize": 12,
+      "fontColor": "#333333"
+    },
+    "dataColors": ["#1F77B4"]
+  }
+}

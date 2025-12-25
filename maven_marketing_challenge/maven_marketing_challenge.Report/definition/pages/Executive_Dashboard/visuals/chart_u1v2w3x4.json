@@ -1,0 +1,52 @@
+{
+  "filepath": "maven_marketing_challenge/maven_marketing_challenge.Report/definition/pages/Executive_Dashboard/visuals/chart_u1v2w3x4.json",
+  "name": "chart_u1v2w3x4",
+  "displayName": "Campaign Acceptance Rates",
+  "config": {
+    "type": "ColumnChart",
+    "dataModel": {
+      "measures": [
+        "Accepted Cmp1 Rate",
+        "Accepted Cmp2 Rate",
+        "Accepted Cmp3 Rate",
+        "Accepted Cmp4 Rate",
+        "Accepted Cmp5 Rate",
+        "Last Campaign Response Rate"
+      ],
+      "table": "Marketing"
+    },
+    "categoryAxis": {
+      "labels": [
+        "Campaign 1",
+        "Campaign 2",
+        "Campaign 3",
+        "Campaign 4",
+        "Campaign 5",
+        "Latest"
+      ]
+    }
+  },
+  "formatting": {
+    "shadow": {
+      "visible": true,
+      "blur": 8,
+      "color": "#00000015",
+      "offsetX": 2,
+      "offsetY": 2
+    },
+    "visualBorder": {
+      "visible": true,
+      "radius": 8,
+      "color": "#FFFFFF",
+      "width": 1,
+      "backgroundColor": "#FFFFFF"
+    },
+    "padding": 10,
+    "title": {
+      "text": "Q2: Which Campaign is Most Successful?",
+      "fontSize": 12,
+      "fontColor": "#333333"
+    },
+    "dataColors": ["#1F77B4"]
+  }
+}

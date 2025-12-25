@@ -1,0 +1,111 @@
+{
+  "filepath": "maven_marketing_challenge/maven_marketing_challenge.Report/definition/pages/Executive_Dashboard/page.json",
+  "name": "Executive_Dashboard",
+  "displayName": "Executive Summary Dashboard",
+  "description": "One-page dashboard answering key marketing performance questions",
+  "width": 1280,
+  "height": 720,
+  "defaultHeight": 720,
+  "defaultWidth": 1280,
+  "pageBackgroundColor": "#F3F2F1",
+  "visualContainers": [
+    {
+      "x": 10,
+      "y": 10,
+      "z": 0,
+      "width": 300,
+      "height": 160,
+      "name": "kpi_a1b2c3d4",
+      "displayName": "Total Customers KPI",
+      "config": {
+        "type": "KPI"
+      }
+    },
+    {
+      "x": 320,
+      "y": 10,
+      "z": 1,
+      "width": 300,
+      "height": 160,
+      "name": "kpi_e5f6g7h8",
+      "displayName": "Total Revenue KPI",
+      "config": {
+        "type": "KPI"
+      }
+    },
+    {
+      "x": 630,
+      "y": 10,
+      "z": 2,
+      "width": 300,
+      "height": 160,
+      "name": "kpi_i9j0k1l2",
+      "displayName": "Avg Customer Age KPI",
+      "config": {
+        "type": "KPI"
+      }
+    },
+    {
+      "x": 940,
+      "y": 10,
+      "z": 3,
+      "width": 330,
+      "height": 160,
+      "name": "kpi_m3n4o5p6",
+      "displayName": "Web Conversion Rate KPI",
+      "config": {
+        "type": "KPI"
+      }
+    },
+    {
+      "x": 10,
+      "y": 180,
+      "z": 4,
+      "width": 310,
+      "height": 280,
+      "name": "chart_q7r8s9t0",
+      "displayName": "Product Performance (Spend)",
+      "config": {
+        "type": "ColumnChart"
+      }
+    },
+    {
+      "x": 330,
+      "y": 180,
+      "z": 5,
+      "width": 310,
+      "height": 280,
+      "name": "chart_u1v2w3x4",
+      "displayName": "Campaign Success Rates",
+      "config": {
+        "type": "ColumnChart"
+      }
+    },
+    {
+      "x": 650,
+      "y": 180,
+      "z": 6,
+      "width": 310,
+      "height": 280,
+      "name": "chart_y5z6a7b8",
+      "displayName": "Channel Performance (Purchases)",
+      "config": {
+        "type": "PieChart"
+      }
+    },
+    {
+      "x": 970,
+      "y": 180,
+      "z": 7,
+      "width": 300,
+      "height": 280,
+      "name": "chart_c9d0e1f2",
+      "displayName": "Web Purchase Drivers (Correlation)",
+      "config": {
+        "type": "ColumnChart"
+      }
+    }
+  ],
+  "filters": [],
+  "bookmarks": []
+}
