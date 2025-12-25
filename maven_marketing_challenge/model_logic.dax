@@ -19,7 +19,7 @@ Total Spend =
     SUM(Marketing[MntSweetProducts]) +
     SUM(Marketing[MntGoldProds])
 
-Avg Income = AVERAGE(Marketing[Income])
+Avg Income = AVERAGE(Marketing[ Income ])
 Average Age =
     AVERAGEX(Marketing, YEAR(TODAY()) - Marketing[Year_Birth])
 Average Tenure (Months) = AVERAGE(Marketing[TenureMonths])
@@ -83,43 +83,43 @@ Catalog Share = AVERAGE(Marketing[Share_Catalog])
 Underperforming Channel =
 VAR web = [Web Conversion Rate]
 VAR store = [Store Share]
-VAR catalog = [Catalog Share]
+VAR c = [Catalog Share]
 RETURN
     SWITCH(
         TRUE(),
-        web <= store && web <= catalog, "Web",
-        store <= web && store <= catalog, "Store",
+        web <= store && web <= c, "Web",
+        store <= web && store <= c, "Store",
         "Catalog"
     )
 
 // Correlations with Web Purchases (Pearson)
 Corr(WebPurchases, WebVisits) =
 VAR n = COUNTROWS(Marketing)
-VAR sumX = SUM(Marketing[NumWebPurchases])
+VAR sumEX = SUM(Marketing[NumWebPurchases])
 VAR sumY = SUM(Marketing[NumWebVisitsMonth])
 VAR sumXY = SUMX(Marketing, Marketing[NumWebPurchases] * Marketing[NumWebVisitsMonth])
 VAR sumX2 = SUMX(Marketing, Marketing[NumWebPurchases] * Marketing[NumWebPurchases])
 VAR sumY2 = SUMX(Marketing, Marketing[NumWebVisitsMonth] * Marketing[NumWebVisitsMonth])
 RETURN DIVIDE(
-    (n * sumXY) - (sumX * sumY),
-    SQRT( ((n * sumX2) - (sumX * sumX)) * ((n * sumY2) - (sumY * sumY)) )
+    (n * sumXY) - (sumEX * sumY),
+    SQRT( ((n * sumX2) - (sumEX * sumEX)) * ((n * sumY2) - (sumY * sumY)) )
 )
 
 Corr(WebPurchases, Income) =
 VAR n = COUNTROWS(Marketing)
-VAR sumX = SUM(Marketing[NumWebPurchases])
+VAR sumEX = SUM(Marketing[NumWebPurchases])
 VAR sumY = SUM(Marketing[Income])
 VAR sumXY = SUMX(Marketing, Marketing[NumWebPurchases] * Marketing[Income])
 VAR sumX2 = SUMX(Marketing, Marketing[NumWebPurchases] * Marketing[NumWebPurchases])
 VAR sumY2 = SUMX(Marketing, Marketing[Income] * Marketing[Income])
 RETURN DIVIDE(
-    (n * sumXY) - (sumX * sumY),
-    SQRT( ((n * sumX2) - (sumX * sumX)) * ((n * sumY2) - (sumY * sumY)) )
+    (n * sumXY) - (sumEX * sumY),
+    SQRT( ((n * sumX2) - (sumEX * sumEX)) * ((n * sumY2) - (sumY * sumY)) )
 )
 
 Corr(WebPurchases, TotalSpend) =
 VAR n = COUNTROWS(Marketing)
-VAR sumX = SUM(Marketing[NumWebPurchases])
+VAR sumEX = SUM(Marketing[NumWebPurchases])
 VAR sumY = [Total Spend]
 VAR sumXY = SUMX(Marketing, Marketing[NumWebPurchases] *
     (Marketing[MntWines] + Marketing[MntFruits] + Marketing[MntMeatProducts] + Marketing[MntFishProducts] + Marketing[MntSweetProducts] + Marketing[MntGoldProds]))
@@ -130,6 +130,6 @@ VAR sumY2 =
         (Marketing[MntWines] + Marketing[MntFruits] + Marketing[MntMeatProducts] + Marketing[MntFishProducts] + Marketing[MntSweetProducts] + Marketing[MntGoldProds])
     )
 RETURN DIVIDE(
-    (n * sumXY) - (sumX * sumY),
-    SQRT( ((n * sumX2) - (sumX * sumX)) * ((n * sumY2) - (sumY * sumY)) )
+    (n * sumXY) - (sumEX * sumY),
+    SQRT( ((n * sumX2) - (sumEX * sumEX)) * ((n * sumY2) - (sumY * sumY)) )
 )
