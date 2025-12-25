@@ -1,0 +1,22 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-PT
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["Marketing"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.142.1277.0 (25.04)+014fde450f93691fc9537f0758d73d1c5df153ef
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Marketing
+ref table DateTableTemplate_75e015d9-9f85-4572-bafe-efa5b4da3e19
+ref table LocalDateTable_c47569f0-60aa-44a8-8e74-985f29f58f4e
+
+ref cultureInfo en-US
+

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "maven_marketing_challenge"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "58f8548d-70e9-4b0e-9ea6-14d10095aea6"
+  }
+}

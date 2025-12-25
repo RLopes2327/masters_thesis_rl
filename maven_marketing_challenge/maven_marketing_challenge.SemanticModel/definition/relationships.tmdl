@@ -1,0 +1,5 @@
+relationship 2d5dd255-8810-4d91-8ebb-6a90eb418db5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Marketing.Dt_Customer
+	toColumn: LocalDateTable_c47569f0-60aa-44a8-8e74-985f29f58f4e.Date
+

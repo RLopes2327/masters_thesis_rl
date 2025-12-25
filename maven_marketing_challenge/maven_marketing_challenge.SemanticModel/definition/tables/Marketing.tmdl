@@ -1,0 +1,629 @@
+table Marketing
+	lineageTag: 8386a0e3-1f6d-4f10-a799-7f348f59034a
+
+	measure 'Total Customers' = COUNTROWS(Marketing)
+		formatString: 0
+		lineageTag: 4d1b2f80-b5b9-4d9c-9394-425712e72e76
+
+	measure 'Web Purchases' = SUM(Marketing[NumWebPurchases])
+		formatString: 0
+		lineageTag: 5b759aee-2a8d-44e9-8a9b-343c16601efd
+
+	measure 'Catalog Purchases' = SUM(Marketing[NumCatalogPurchases])
+		formatString: 0
+		lineageTag: 719ef8ad-b58f-4021-8018-6367dcc5ed34
+
+	measure 'Store Purchases' = SUM(Marketing[NumStorePurchases])
+		formatString: 0
+		lineageTag: 8a0e675d-7367-49af-99bb-8e7179ba69d6
+
+	measure 'Total Purchases' = [Web Purchases] + [Catalog Purchases] + [Store Purchases]
+		formatString: 0
+		lineageTag: 49c57482-811a-4a59-a9b1-09f6874e743f
+
+	measure 'Web Visits' = SUM(Marketing[NumWebVisitsMonth])
+		formatString: 0
+		lineageTag: 43380f6f-d268-4564-9d83-9eab4f15bf11
+
+	measure 'Web Conversion Rate' = DIVIDE([Web Purchases], [Web Visits])
+		lineageTag: daaae103-a32d-4c8d-a7fb-b2f29d55cda0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Spend' = ```
+			
+			    SUM(Marketing[MntWines]) +
+			    SUM(Marketing[MntFruits]) +
+			    SUM(Marketing[MntMeatProducts]) +
+			    SUM(Marketing[MntFishProducts]) +
+			    SUM(Marketing[MntSweetProducts]) +
+			    SUM(Marketing[MntGoldProds])
+			```
+		formatString: 0
+		lineageTag: 05ed5ebc-7866-4442-a68f-da61603a9c64
+
+	measure 'Avg Income' = AVERAGE(Marketing[ Income ])
+		formatString: 0
+		lineageTag: c6571935-fddf-4e26-8939-fc6187b3a011
+
+	measure 'Average Age' = ```
+			
+			    AVERAGEX(Marketing, YEAR(TODAY()) - Marketing[Year_Birth])
+			```
+		lineageTag: 6f54c0fb-dcbc-4d62-a1da-b0de97ba798a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Average Tenure (Months)' = AVERAGE(Marketing[TenureMonths])
+		lineageTag: 0994fd41-0019-4fa6-9ed7-18ded8620933
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Spend Wines' = SUM(Marketing[MntWines])
+		formatString: 0
+		lineageTag: 02709d72-72ae-4b8d-bd59-16651e5a17e1
+
+	measure 'Spend Fruits' = SUM(Marketing[MntFruits])
+		formatString: 0
+		lineageTag: c61edb2c-5e17-477e-92e8-fd7ec01ff9d9
+
+	measure 'Spend Meat' = SUM(Marketing[MntMeatProducts])
+		formatString: 0
+		lineageTag: c3d4d785-cdee-438d-8982-001852c8bde9
+
+	measure 'Spend Fish' = SUM(Marketing[MntFishProducts])
+		formatString: 0
+		lineageTag: 37c7dfdb-438e-4446-a4bf-243b3339bd1d
+
+	measure 'Spend Sweet' = SUM(Marketing[MntSweetProducts])
+		formatString: 0
+		lineageTag: 94f08a76-989d-42ce-82c7-85017cbdac9d
+
+	measure 'Spend Gold' = SUM(Marketing[MntGoldProds])
+		formatString: 0
+		lineageTag: f5f40046-a729-416a-9e4e-4fa70e2bdcab
+
+	measure 'Top Product by Spend' =
+			
+			VAR vW = [Spend Wines]
+			VAR vF = [Spend Fruits]
+			VAR vM = [Spend Meat]
+			VAR vFi = [Spend Fish]
+			VAR vS = [Spend Sweet]
+			VAR vG = [Spend Gold]
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        vW >= vF && vW >= vM && vW >= vFi && vW >= vS && vW >= vG, "Wines",
+			        vM >= vW && vM >= vF && vM >= vFi && vM >= vS && vM >= vG, "Meat",
+			        vF >= vW && vF >= vM && vF >= vFi && vF >= vS && vF >= vG, "Fruits",
+			        vFi >= vW && vFi >= vF && vFi >= vM && vFi >= vS && vFi >= vG, "Fish",
+			        vS >= vW && vS >= vF && vS >= vM && vS >= vFi && vS >= vG, "Sweet",
+			        "Gold"
+			    )
+		lineageTag: 1bc8a13f-95e9-4635-9b2f-5220329796e1
+
+	measure 'Accepted Cmp1 Rate' = AVERAGE(Marketing[AcceptedCmp1])
+		lineageTag: 19b41260-2444-42bf-9c8c-f56d55477789
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Accepted Cmp2 Rate' = AVERAGE(Marketing[AcceptedCmp2])
+		lineageTag: 0e6e6cf8-0d66-4c26-8c83-de46267bbb3b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Accepted Cmp3 Rate' = AVERAGE(Marketing[AcceptedCmp3])
+		lineageTag: d7a71355-643c-4882-aa62-70ccc9cdefc0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Accepted Cmp4 Rate' = AVERAGE(Marketing[AcceptedCmp4])
+		lineageTag: af215e22-68b9-4a2c-b9b5-2cbf117dbc2a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Accepted Cmp5 Rate' = AVERAGE(Marketing[AcceptedCmp5])
+		lineageTag: 4368c849-9dc1-4e53-964f-edbe5303ecaf
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Last Campaign Response Rate' = AVERAGE(Marketing[Response])
+		lineageTag: 1b4458c6-823b-4ce7-881f-b40e837ad341
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Best Campaign' =
+			
+			VAR c1 = [Accepted Cmp1 Rate]
+			VAR c2 = [Accepted Cmp2 Rate]
+			VAR c3 = [Accepted Cmp3 Rate]
+			VAR c4 = [Accepted Cmp4 Rate]
+			VAR c5 = [Accepted Cmp5 Rate]
+			VAR cr = [Last Campaign Response Rate]
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        c1 >= c2 && c1 >= c3 && c1 >= c4 && c1 >= c5 && c1 >= cr, "Campaign 1",
+			        c2 >= c1 && c2 >= c3 && c2 >= c4 && c2 >= c5 && c2 >= cr, "Campaign 2",
+			        c3 >= c1 && c3 >= c2 && c3 >= c4 && c3 >= c5 && c3 >= cr, "Campaign 3",
+			        c4 >= c1 && c4 >= c2 && c4 >= c3 && c4 >= c5 && c4 >= cr, "Campaign 4",
+			        c5 >= c1 && c5 >= c2 && c5 >= c3 && c5 >= c4 && c5 >= cr, "Campaign 5",
+			        "Last Campaign"
+			    )
+		lineageTag: 56acc8e5-5bb0-4d61-821f-24f8c60a272a
+
+	measure 'Store Share' = AVERAGE(Marketing[Share_Store])
+		formatString: 0
+		lineageTag: 9b0c0a6d-b2ef-4f29-9dd1-d3de8cd02259
+
+	measure 'Catalog Share' = AVERAGE(Marketing[Share_Catalog])
+		formatString: 0
+		lineageTag: 100e7132-4759-44c0-8383-8c12eb855c83
+
+	measure 'Underperforming Channel' =
+			
+			VAR web = [Web Conversion Rate]
+			VAR store = [Store Share]
+			VAR c = [Catalog Share]
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        web <= store && web <= c, "Web",
+			        store <= web && store <= c, "Store",
+			        "Catalog"
+			    )
+		lineageTag: d855742e-94bd-4bdd-a3f6-6c2d4dccd666
+
+	measure 'Corr(WebPurchases, WebVisits)' =
+			
+			VAR n = COUNTROWS(Marketing)
+			VAR sumEX = SUM(Marketing[NumWebPurchases])
+			VAR sumY = SUM(Marketing[NumWebVisitsMonth])
+			VAR sumXY = SUMX(Marketing, Marketing[NumWebPurchases] * Marketing[NumWebVisitsMonth])
+			VAR sumX2 = SUMX(Marketing, Marketing[NumWebPurchases] * Marketing[NumWebPurchases])
+			VAR sumY2 = SUMX(Marketing, Marketing[NumWebVisitsMonth] * Marketing[NumWebVisitsMonth])
+			RETURN DIVIDE(
+			    (n * sumXY) - (sumEX * sumY),
+			    SQRT( ((n * sumX2) - (sumEX * sumEX)) * ((n * sumY2) - (sumY * sumY)) )
+			)
+		lineageTag: ab846ec2-c193-4291-a946-02e75c625e18
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Corr(WebPurchases, Income)' =
+			
+			VAR n = COUNTROWS(Marketing)
+			VAR sumEX = SUM(Marketing[NumWebPurchases])
+			VAR sumY = SUM(Marketing[ Income ])
+			VAR sumXY = SUMX(Marketing, Marketing[NumWebPurchases] * Marketing[ Income ])
+			VAR sumX2 = SUMX(Marketing, Marketing[NumWebPurchases] * Marketing[NumWebPurchases])
+			VAR sumY2 = SUMX(Marketing, Marketing[ Income ] * Marketing[ Income ])
+			RETURN DIVIDE(
+			    (n * sumXY) - (sumEX * sumY),
+			    SQRT( ((n * sumX2) - (sumEX * sumEX)) * ((n * sumY2) - (sumY * sumY)) )
+			)
+		formatString: 0
+		lineageTag: b0276c37-a51d-4513-bb55-71718f44bb1e
+
+	measure 'Corr(WebPurchases, TotalSpend)' =
+			
+			VAR n = COUNTROWS(Marketing)
+			VAR sumEX = SUM(Marketing[NumWebPurchases])
+			VAR sumY = [Total Spend]
+			VAR sumXY = SUMX(Marketing, Marketing[NumWebPurchases] *
+			    (Marketing[MntWines] + Marketing[MntFruits] + Marketing[MntMeatProducts] + Marketing[MntFishProducts] + Marketing[MntSweetProducts] + Marketing[MntGoldProds]))
+			VAR sumX2 = SUMX(Marketing, Marketing[NumWebPurchases] * Marketing[NumWebPurchases])
+			VAR sumY2 =
+			    SUMX(Marketing,
+			        (Marketing[MntWines] + Marketing[MntFruits] + Marketing[MntMeatProducts] + Marketing[MntFishProducts] + Marketing[MntSweetProducts] + Marketing[MntGoldProds]) *
+			        (Marketing[MntWines] + Marketing[MntFruits] + Marketing[MntMeatProducts] + Marketing[MntFishProducts] + Marketing[MntSweetProducts] + Marketing[MntGoldProds])
+			    )
+			RETURN DIVIDE(
+			    (n * sumXY) - (sumEX * sumY),
+			    SQRT( ((n * sumX2) - (sumEX * sumEX)) * ((n * sumY2) - (sumY * sumY)) )
+			)
+		lineageTag: 802354ad-aa41-4fe8-ae39-5b7f0609c2bc
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ID
+		dataType: int64
+		formatString: 0
+		lineageTag: fe053cf5-31f3-4d50-938f-c4f8796b0c06
+		summarizeBy: count
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year_Birth
+		dataType: int64
+		formatString: 0
+		lineageTag: 5c9ec0d7-11fc-408c-9031-852934687140
+		summarizeBy: sum
+		sourceColumn: Year_Birth
+
+		annotation SummarizationSetBy = Automatic
+
+	column Education
+		dataType: string
+		lineageTag: d9f1d553-4279-4e3c-9db3-6120be967018
+		summarizeBy: none
+		sourceColumn: Education
+
+		annotation SummarizationSetBy = Automatic
+
+	column Marital_Status
+		dataType: string
+		lineageTag: 95f32b3e-cb8a-4f3b-91ae-01e290a64515
+		summarizeBy: none
+		sourceColumn: Marital_Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column ' Income '
+		dataType: string
+		lineageTag: 91333ab0-ac6a-44e3-b895-6b6353579310
+		summarizeBy: none
+		sourceColumn: " Income "
+
+		annotation SummarizationSetBy = Automatic
+
+	column Kidhome
+		dataType: int64
+		formatString: 0
+		lineageTag: cf8d68fe-a1ca-41a1-a547-bf0345f8e66c
+		summarizeBy: sum
+		sourceColumn: Kidhome
+
+		annotation SummarizationSetBy = Automatic
+
+	column Teenhome
+		dataType: int64
+		formatString: 0
+		lineageTag: 486e5ea0-c34a-4736-94ea-6dad872c2cd5
+		summarizeBy: sum
+		sourceColumn: Teenhome
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dt_Customer
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: ef070a09-8aad-4115-b35d-07ba99000d88
+		summarizeBy: none
+		sourceColumn: Dt_Customer
+
+		variation Variation
+			isDefault
+			relationship: 2d5dd255-8810-4d91-8ebb-6a90eb418db5
+			defaultHierarchy: LocalDateTable_c47569f0-60aa-44a8-8e74-985f29f58f4e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Recency
+		dataType: int64
+		formatString: 0
+		lineageTag: e2c2dab7-5cfc-44de-825a-a484b7355c25
+		summarizeBy: sum
+		sourceColumn: Recency
+
+		annotation SummarizationSetBy = Automatic
+
+	column MntWines
+		dataType: int64
+		formatString: 0
+		lineageTag: 41a5c916-015d-4292-b2f1-66713044cf12
+		summarizeBy: sum
+		sourceColumn: MntWines
+
+		annotation SummarizationSetBy = Automatic
+
+	column MntFruits
+		dataType: int64
+		formatString: 0
+		lineageTag: 708e48de-cc50-4bd3-a2e6-f70beeaafe21
+		summarizeBy: sum
+		sourceColumn: MntFruits
+
+		annotation SummarizationSetBy = Automatic
+
+	column MntMeatProducts
+		dataType: int64
+		formatString: 0
+		lineageTag: 47e0d496-b44e-45d2-84b0-9e6a1dda359a
+		summarizeBy: sum
+		sourceColumn: MntMeatProducts
+
+		annotation SummarizationSetBy = Automatic
+
+	column MntFishProducts
+		dataType: string
+		lineageTag: fd738b7d-d3ab-497f-be26-cded779fe15d
+		summarizeBy: none
+		sourceColumn: MntFishProducts
+
+		annotation SummarizationSetBy = Automatic
+
+	column MntSweetProducts
+		dataType: int64
+		formatString: 0
+		lineageTag: 0145975e-90ea-4a58-b6ba-99e935259361
+		summarizeBy: sum
+		sourceColumn: MntSweetProducts
+
+		annotation SummarizationSetBy = Automatic
+
+	column MntGoldProds
+		dataType: string
+		lineageTag: c0cc7465-d92c-4a46-90f7-14decf441c7c
+		summarizeBy: none
+		sourceColumn: MntGoldProds
+
+		annotation SummarizationSetBy = Automatic
+
+	column NumDealsPurchases
+		dataType: int64
+		formatString: 0
+		lineageTag: 07a22e01-0094-4191-a454-185759cfc031
+		summarizeBy: sum
+		sourceColumn: NumDealsPurchases
+
+		annotation SummarizationSetBy = Automatic
+
+	column NumWebPurchases
+		dataType: int64
+		formatString: 0
+		lineageTag: d1c94f4e-796f-44a2-96cf-59c0cc451932
+		summarizeBy: sum
+		sourceColumn: NumWebPurchases
+
+		annotation SummarizationSetBy = Automatic
+
+	column NumCatalogPurchases
+		dataType: int64
+		formatString: 0
+		lineageTag: f1c3e1d3-5dd7-400d-ba3d-c9e426cb39a3
+		summarizeBy: sum
+		sourceColumn: NumCatalogPurchases
+
+		annotation SummarizationSetBy = Automatic
+
+	column NumStorePurchases
+		dataType: int64
+		formatString: 0
+		lineageTag: b0059bdd-e3f9-46f7-8fea-193564e1240c
+		summarizeBy: sum
+		sourceColumn: NumStorePurchases
+
+		annotation SummarizationSetBy = Automatic
+
+	column NumWebVisitsMonth
+		dataType: int64
+		formatString: 0
+		lineageTag: 84a5615c-4e55-4485-a505-5ca5122a21b5
+		summarizeBy: sum
+		sourceColumn: NumWebVisitsMonth
+
+		annotation SummarizationSetBy = Automatic
+
+	column AcceptedCmp3
+		dataType: int64
+		formatString: 0
+		lineageTag: 92a98cdc-4af4-4c75-899d-39390b284b54
+		summarizeBy: sum
+		sourceColumn: AcceptedCmp3
+
+		annotation SummarizationSetBy = Automatic
+
+	column AcceptedCmp4
+		dataType: int64
+		formatString: 0
+		lineageTag: d5f85d3e-b9fd-49b9-8f02-5c89a95083d8
+		summarizeBy: sum
+		sourceColumn: AcceptedCmp4
+
+		annotation SummarizationSetBy = Automatic
+
+	column AcceptedCmp5
+		dataType: int64
+		formatString: 0
+		lineageTag: 89bd3b1f-b372-4ed8-906d-b4b5ec408f20
+		summarizeBy: sum
+		sourceColumn: AcceptedCmp5
+
+		annotation SummarizationSetBy = Automatic
+
+	column AcceptedCmp1
+		dataType: int64
+		formatString: 0
+		lineageTag: 5ef5081e-be72-40ed-a520-7af14560412c
+		summarizeBy: sum
+		sourceColumn: AcceptedCmp1
+
+		annotation SummarizationSetBy = Automatic
+
+	column AcceptedCmp2
+		dataType: int64
+		formatString: 0
+		lineageTag: 14aff6f2-2759-4daf-88a9-ae4d09fecce5
+		summarizeBy: sum
+		sourceColumn: AcceptedCmp2
+
+		annotation SummarizationSetBy = Automatic
+
+	column Response
+		dataType: int64
+		formatString: 0
+		lineageTag: 8cc305fd-e9da-4527-80cb-e21d95e5b58d
+		summarizeBy: sum
+		sourceColumn: Response
+
+		annotation SummarizationSetBy = Automatic
+
+	column Complain
+		dataType: int64
+		formatString: 0
+		lineageTag: 6a00aa3d-093e-4ff0-9c8b-c2412a8867cf
+		summarizeBy: sum
+		sourceColumn: Complain
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: 337c25c2-a2fd-4830-82b5-bc896e46c642
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column log1p_MntWines
+		dataType: string
+		lineageTag: 747795d0-1484-4738-8bfe-f7fea478ed53
+		summarizeBy: none
+		sourceColumn: log1p_MntWines
+
+		annotation SummarizationSetBy = Automatic
+
+	column log1p_MntFruits
+		dataType: string
+		lineageTag: 1a12858c-f8d4-451b-a15d-6f5a0e883d36
+		summarizeBy: none
+		sourceColumn: log1p_MntFruits
+
+		annotation SummarizationSetBy = Automatic
+
+	column log1p_MntMeatProducts
+		dataType: string
+		lineageTag: 087a8dd6-7374-4c21-83b3-e3726e4066a1
+		summarizeBy: none
+		sourceColumn: log1p_MntMeatProducts
+
+		annotation SummarizationSetBy = Automatic
+
+	column log1p_MntFishProducts
+		dataType: string
+		lineageTag: a065532e-d735-4d0e-9c0c-5dbea29707de
+		summarizeBy: none
+		sourceColumn: log1p_MntFishProducts
+
+		annotation SummarizationSetBy = Automatic
+
+	column log1p_MntSweetProducts
+		dataType: string
+		lineageTag: 605cf7fa-67b4-468b-b635-62b0402dcb4d
+		summarizeBy: none
+		sourceColumn: log1p_MntSweetProducts
+
+		annotation SummarizationSetBy = Automatic
+
+	column log1p_MntGoldProds
+		dataType: string
+		lineageTag: c7ce2219-01c7-4bad-98bc-2fb3482d5bc7
+		summarizeBy: none
+		sourceColumn: log1p_MntGoldProds
+
+		annotation SummarizationSetBy = Automatic
+
+	column Age
+		dataType: int64
+		formatString: 0
+		lineageTag: d4393d5b-f39d-4748-b7c7-8cb95a9a52c7
+		summarizeBy: sum
+		sourceColumn: Age
+
+		annotation SummarizationSetBy = Automatic
+
+	column TenureMonths
+		dataType: int64
+		formatString: 0
+		lineageTag: 7e8da1a2-f59c-4bb8-bc4a-e0065646f2e4
+		summarizeBy: sum
+		sourceColumn: TenureMonths
+
+		annotation SummarizationSetBy = Automatic
+
+	column Total_Spend
+		dataType: string
+		lineageTag: 28310e47-7ea5-4a17-9518-693d3eaba31d
+		summarizeBy: none
+		sourceColumn: Total_Spend
+
+		annotation SummarizationSetBy = Automatic
+
+	column Total_Purchases
+		dataType: int64
+		formatString: 0
+		lineageTag: 11ec1a1b-7120-443d-ad58-cef17afa0c07
+		summarizeBy: sum
+		sourceColumn: Total_Purchases
+
+		annotation SummarizationSetBy = Automatic
+
+	column Share_Web
+		dataType: string
+		lineageTag: 2a0cbd1d-5f62-413a-b2ad-f8098b14ab0a
+		summarizeBy: none
+		sourceColumn: Share_Web
+
+		annotation SummarizationSetBy = Automatic
+
+	column Share_Catalog
+		dataType: string
+		lineageTag: 172c4b87-9b71-4e15-ae6a-753dfcea296f
+		summarizeBy: none
+		sourceColumn: Share_Catalog
+
+		annotation SummarizationSetBy = Automatic
+
+	column Share_Store
+		dataType: string
+		lineageTag: ad0afe6c-60a9-4dea-9c5a-b51106950775
+		summarizeBy: none
+		sourceColumn: Share_Store
+
+		annotation SummarizationSetBy = Automatic
+
+	column Web_Conversion
+		dataType: string
+		lineageTag: 6ffcda46-d05d-44be-886d-40bb29afe528
+		summarizeBy: none
+		sourceColumn: Web_Conversion
+
+		annotation SummarizationSetBy = Automatic
+
+	column Campaign_Accepted_Any
+		dataType: int64
+		formatString: 0
+		lineageTag: 064dd2c5-24ba-47c9-8ae0-c3b0ace1386c
+		summarizeBy: sum
+		sourceColumn: Campaign_Accepted_Any
+
+		annotation SummarizationSetBy = Automatic
+
+	column Campaign_Accepted_Count
+		dataType: int64
+		formatString: 0
+		lineageTag: fb94c104-9e3b-4aa0-836e-cfab0ee8ef97
+		summarizeBy: sum
+		sourceColumn: Campaign_Accepted_Count
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Marketing = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\lopes\OneDrive\Documentos\GitHub\masters_thesis_rl\maven_marketing_challenge\silver_layer_marketing_data.csv"),[Delimiter=",", Columns=44, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ID", Int64.Type}, {"Year_Birth", Int64.Type}, {"Education", type text}, {"Marital_Status", type text}, {" Income ", type text}, {"Kidhome", Int64.Type}, {"Teenhome", Int64.Type}, {"Dt_Customer", type date}, {"Recency", Int64.Type}, {"MntWines", Int64.Type}, {"MntFruits", Int64.Type}, {"MntMeatProducts", Int64.Type}, {"MntFishProducts", type text}, {"MntSweetProducts", Int64.Type}, {"MntGoldProds", type text}, {"NumDealsPurchases", Int64.Type}, {"NumWebPurchases", Int64.Type}, {"NumCatalogPurchases", Int64.Type}, {"NumStorePurchases", Int64.Type}, {"NumWebVisitsMonth", Int64.Type}, {"AcceptedCmp3", Int64.Type}, {"AcceptedCmp4", Int64.Type}, {"AcceptedCmp5", Int64.Type}, {"AcceptedCmp1", Int64.Type}, {"AcceptedCmp2", Int64.Type}, {"Response", Int64.Type}, {"Complain", Int64.Type}, {"Country", type text}, {"log1p_MntWines", type text}, {"log1p_MntFruits", type text}, {"log1p_MntMeatProducts", type text}, {"log1p_MntFishProducts", type text}, {"log1p_MntSweetProducts", type text}, {"log1p_MntGoldProds", type text}, {"Age", Int64.Type}, {"TenureMonths", Int64.Type}, {"Total_Spend", type text}, {"Total_Purchases", Int64.Type}, {"Share_Web", type text}, {"Share_Catalog", type text}, {"Share_Store", type text}, {"Web_Conversion", type text}, {"Campaign_Accepted_Any", Int64.Type}, {"Campaign_Accepted_Count", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+
