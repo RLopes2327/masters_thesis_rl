@@ -3,10 +3,9 @@
   "name": "Executive_Dashboard",
   "displayName": "Executive Summary Dashboard",
   "description": "One-page dashboard answering key marketing performance questions",
+  "displayOption": "FitToPage",
   "width": 1280,
   "height": 720,
-  "defaultHeight": 720,
-  "defaultWidth": 1280,
   "pageBackgroundColor": "#F3F2F1",
   "visualContainers": [
     {
