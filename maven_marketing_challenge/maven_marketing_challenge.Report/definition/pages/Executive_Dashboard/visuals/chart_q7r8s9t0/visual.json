@@ -1,18 +1,48 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
   "name": "chart_q7r8s9t0",
-  "position": { "x": 10, "y": 180, "z": 4, "width": 310, "height": 280, "tabOrder": 5 },
   "visual": {
     "visualType": "clusteredColumnChart",
     "query": {
       "queryState": {
         "Y": {
-          "projections": []
+          "projections": [
+            { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Marketing" } }, "Property": "Spend Wines" } }, "queryRef": "Marketing.SpendWines" },
+            { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Marketing" } }, "Property": "Spend Meat" } }, "queryRef": "Marketing.SpendMeat" },
+            { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Marketing" } }, "Property": "Spend Fish" } }, "queryRef": "Marketing.SpendFish" },
+            { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Marketing" } }, "Property": "Spend Fruits" } }, "queryRef": "Marketing.SpendFruits" },
+            { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Marketing" } }, "Property": "Spend Sweet" } }, "queryRef": "Marketing.SpendSweet" },
+            { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Marketing" } }, "Property": "Spend Gold" } }, "queryRef": "Marketing.SpendGold" }
+          ]
         }
       }
     },
     "objects": {
-      "general": []
+      "title": [
+        {
+          "properties": {
+            "show": { "expr": { "Literal": { "Value": "true" } } },
+            "text": { "expr": { "Literal": { "Value": "'Q4: Which Products Are Performing Best?'" } } },
+            "fontSize": { "expr": { "Literal": { "Value": "12D" } } },
+            "fontColor": { "solid": { "color": { "expr": { "Literal": { "Value": "'#333333'" } } } } }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": { "expr": { "Literal": { "Value": "true" } } },
+            "radius": { "expr": { "Literal": { "Value": "8D" } } }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": { "expr": { "Literal": { "Value": "true" } } },
+            "blur": { "expr": { "Literal": { "Value": "8D" } } }
+          }
+        }
+      ]
     }
   }
 }

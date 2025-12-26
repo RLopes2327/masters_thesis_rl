@@ -1,19 +1,44 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
   "name": "kpi_e5f6g7h8",
-  "position": { "x": 320, "y": 10, "z": 1, "width": 300, "height": 160, "tabOrder": 2 },
   "visual": {
-    "visualType": "kpi",
+    "visualType": "card",
     "query": {
       "queryState": {
-        "Indicator": {
-          "projections": []
+        "Values": {
+          "projections": [
+            {
+              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Marketing" } }, "Property": "Total Spend" } },
+              "queryRef": "Marketing.TotalSpend"
+            }
+          ]
         }
       }
     },
     "objects": {
-      "general": [],
-      "indicator": []
+      "labels": [
+        {
+          "properties": {
+            "color": { "solid": { "color": { "expr": { "Literal": { "Value": "'#2CA02C'" } } } } },
+            "fontSize": { "expr": { "Literal": { "Value": "28D" } } }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": { "expr": { "Literal": { "Value": "true" } } },
+            "radius": { "expr": { "Literal": { "Value": "8D" } } }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": { "expr": { "Literal": { "Value": "true" } } },
+            "blur": { "expr": { "Literal": { "Value": "8D" } } }
+          }
+        }
+      ]
     }
   }
 }

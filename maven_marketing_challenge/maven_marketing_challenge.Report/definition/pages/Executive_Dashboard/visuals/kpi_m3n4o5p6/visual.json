@@ -1,19 +1,44 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
   "name": "kpi_m3n4o5p6",
-  "position": { "x": 940, "y": 10, "z": 3, "width": 330, "height": 160, "tabOrder": 4 },
   "visual": {
-    "visualType": "kpi",
+    "visualType": "card",
     "query": {
       "queryState": {
-        "Indicator": {
-          "projections": []
+        "Values": {
+          "projections": [
+            {
+              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Marketing" } }, "Property": "Web Conversion Rate" } },
+              "queryRef": "Marketing.WebConv"
+            }
+          ]
         }
       }
     },
     "objects": {
-      "general": [],
-      "indicator": []
+      "labels": [
+        {
+          "properties": {
+            "color": { "solid": { "color": { "expr": { "Literal": { "Value": "'#D62728'" } } } } },
+            "fontSize": { "expr": { "Literal": { "Value": "28D" } } }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": { "expr": { "Literal": { "Value": "true" } } },
+            "radius": { "expr": { "Literal": { "Value": "8D" } } }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": { "expr": { "Literal": { "Value": "true" } } },
+            "blur": { "expr": { "Literal": { "Value": "8D" } } }
+          }
+        }
+      ]
     }
   }
 }

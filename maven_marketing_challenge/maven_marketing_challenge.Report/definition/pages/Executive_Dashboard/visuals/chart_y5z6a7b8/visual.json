@@ -1,18 +1,52 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
   "name": "chart_y5z6a7b8",
-  "position": { "x": 650, "y": 180, "z": 6, "width": 310, "height": 280, "tabOrder": 7 },
   "visual": {
     "visualType": "pieChart",
     "query": {
       "queryState": {
-        "Y": {
-          "projections": []
+        "Values": {
+          "projections": [
+            { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Marketing" } }, "Property": "Web Purchases" } }, "queryRef": "Marketing.Web" },
+            { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Marketing" } }, "Property": "Catalog Purchases" } }, "queryRef": "Marketing.Catalog" },
+            { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Marketing" } }, "Property": "Store Purchases" } }, "queryRef": "Marketing.Store" }
+          ]
         }
       }
     },
     "objects": {
-      "general": []
+      "labels": [
+        {
+          "properties": {
+            "show": { "expr": { "Literal": { "Value": "true" } } },
+            "labelDisplayUnits": { "expr": { "Literal": { "Value": "0D" } } }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "show": { "expr": { "Literal": { "Value": "true" } } },
+            "text": { "expr": { "Literal": { "Value": "'Q5: Which Channels Are Underperforming?'" } } },
+            "fontColor": { "solid": { "color": { "expr": { "Literal": { "Value": "'#333333'" } } } } }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": { "expr": { "Literal": { "Value": "true" } } },
+            "radius": { "expr": { "Literal": { "Value": "8D" } } }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": { "expr": { "Literal": { "Value": "true" } } },
+            "blur": { "expr": { "Literal": { "Value": "8D" } } }
+          }
+        }
+      ]
     }
   }
 }

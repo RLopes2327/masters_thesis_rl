@@ -1,19 +1,44 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
   "name": "kpi_i9j0k1l2",
-  "position": { "x": 630, "y": 10, "z": 2, "width": 300, "height": 160, "tabOrder": 3 },
   "visual": {
-    "visualType": "kpi",
+    "visualType": "card",
     "query": {
       "queryState": {
-        "Indicator": {
-          "projections": []
+        "Values": {
+          "projections": [
+            {
+              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Marketing" } }, "Property": "Average Age" } },
+              "queryRef": "Marketing.AvgAge"
+            }
+          ]
         }
       }
     },
     "objects": {
-      "general": [],
-      "indicator": []
+      "labels": [
+        {
+          "properties": {
+            "color": { "solid": { "color": { "expr": { "Literal": { "Value": "'#FF7F0E'" } } } } },
+            "fontSize": { "expr": { "Literal": { "Value": "28D" } } }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": { "expr": { "Literal": { "Value": "true" } } },
+            "radius": { "expr": { "Literal": { "Value": "8D" } } }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": { "expr": { "Literal": { "Value": "true" } } },
+            "blur": { "expr": { "Literal": { "Value": "8D" } } }
+          }
+        }
+      ]
     }
   }
 }
