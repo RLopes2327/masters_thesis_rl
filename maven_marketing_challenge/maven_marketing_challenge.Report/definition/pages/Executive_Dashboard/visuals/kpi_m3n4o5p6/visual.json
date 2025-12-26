@@ -12,8 +12,8 @@
       }
     },
     "objects": {
-      "general": {},
-      "indicator": {}
+      "general": [],
+      "indicator": []
     }
   }
 }
