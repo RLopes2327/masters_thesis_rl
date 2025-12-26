@@ -1,0 +1,19 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
+  "name": "kpi_a1b2c3d4",
+  "position": { "x": 10, "y": 10, "z": 0, "width": 300, "height": 160, "tabOrder": 1 },
+  "visual": {
+    "visualType": "kpi",
+    "query": {
+      "queryState": {
+        "Indicator": {
+          "projections": []
+        }
+      }
+    },
+    "objects": {
+      "general": {},
+      "indicator": {}
+    }
+  }
+}

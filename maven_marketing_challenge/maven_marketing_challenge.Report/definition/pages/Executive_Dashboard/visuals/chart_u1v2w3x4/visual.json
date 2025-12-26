@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
+  "name": "chart_u1v2w3x4",
+  "position": { "x": 330, "y": 180, "z": 5, "width": 310, "height": 280, "tabOrder": 6 },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Y": {
+          "projections": []
+        }
+      }
+    },
+    "objects": {
+      "general": {}
+    }
+  }
+}
