@@ -1,0 +1,36 @@
+table DimChannels
+	lineageTag: a75b4b08-8652-434e-822a-b28dc94a8dd2
+
+	column Channel
+		lineageTag: c729157b-8548-489b-bcc0-5b2670f27af5
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Channel]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Order
+		formatString: 0
+		lineageTag: 1aba49b7-e52f-4688-bc1e-4c7a1cb84775
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Order]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimChannels = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				    "Channel", STRING,
+				    "Order", INTEGER,
+				    {
+				        { "Web", 1 },
+				        { "Catalog", 2 },
+				        { "Store", 3 }
+				    }
+				)
+
+	annotation PBI_Id = beb7a105de2f4e69bca93f573a2bca24
+

@@ -255,6 +255,21 @@ table Marketing
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	measure 'Channel Purchases' =
+			
+			VAR ch = SELECTEDVALUE(DimChannels[Channel])
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        ch = "Web", [Web Purchases],
+			        ch = "Catalog", [Catalog Purchases],
+			        ch = "Store", [Store Purchases],
+			        BLANK()
+			    )
+		lineageTag: 734ece02-6c61-44dd-8915-cad61956f84f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	column ID
 		dataType: int64
 		formatString: 0

@@ -104,6 +104,17 @@ DATATABLE(
     }
 )
 
+DimChannels = 
+DATATABLE(
+    "Channel", STRING,
+    "Order", INTEGER,
+    {
+        { "Web", 1 },
+        { "Catalog", 2 },
+        { "Store", 3 }
+    }
+)
+
 Correlation Value =
 VAR f = SELECTEDVALUE(DimFactors[Factor])
 RETURN
