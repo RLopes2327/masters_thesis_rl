@@ -3,34 +3,34 @@
 // Customers & basics
 Total Customers = COUNTROWS(Marketing)
 
-Web Purchases = SUM(Marketing[NumWebPurchases])
-Catalog Purchases = SUM(Marketing[NumCatalogPurchases])
-Store Purchases = SUM(Marketing[NumStorePurchases])
+Web Purchases = SUMX(Marketing, VALUE(Marketing[NumWebPurchases]))
+Catalog Purchases = SUMX(Marketing, VALUE(Marketing[NumCatalogPurchases]))
+Store Purchases = SUMX(Marketing, VALUE(Marketing[NumStorePurchases]))
 Total Purchases = [Web Purchases] + [Catalog Purchases] + [Store Purchases]
 
-Web Visits = SUM(Marketing[NumWebVisitsMonth])
+Web Visits = SUMX(Marketing, VALUE(Marketing[NumWebVisitsMonth]))
 Web Conversion Rate = DIVIDE([Web Purchases], [Web Visits])
 
 Total Spend =
-    SUM(Marketing[MntWines]) +
-    SUM(Marketing[MntFruits]) +
-    SUM(Marketing[MntMeatProducts]) +
-    SUM(Marketing[MntFishProducts]) +
-    SUM(Marketing[MntSweetProducts]) +
-    SUM(Marketing[MntGoldProds])
+    SUMX(Marketing, VALUE(Marketing[MntWines])) +
+    SUMX(Marketing, VALUE(Marketing[MntFruits])) +
+    SUMX(Marketing, VALUE(Marketing[MntMeatProducts])) +
+    SUMX(Marketing, VALUE(Marketing[MntFishProducts])) +
+    SUMX(Marketing, VALUE(Marketing[MntSweetProducts])) +
+    SUMX(Marketing, VALUE(Marketing[MntGoldProds]))
 
-Avg Income = AVERAGE(Marketing[ Income ])
+Avg Income = AVERAGEX(Marketing, VALUE(Marketing[Income]))
 Average Age =
-    AVERAGEX(Marketing, YEAR(TODAY()) - Marketing[Year_Birth])
+    AVERAGEX(Marketing, YEAR(TODAY()) - VALUE(Marketing[Year_Birth]))
 Average Tenure (Months) = AVERAGE(Marketing[TenureMonths])
 
 // Product performance
-Spend Wines = SUM(Marketing[MntWines])
-Spend Fruits = SUM(Marketing[MntFruits])
-Spend Meat = SUM(Marketing[MntMeatProducts])
-Spend Fish = SUM(Marketing[MntFishProducts])
-Spend Sweet = SUM(Marketing[MntSweetProducts])
-Spend Gold = SUM(Marketing[MntGoldProds])
+Spend Wines = SUMX(Marketing, VALUE(Marketing[MntWines]))
+Spend Fruits = SUMX(Marketing, VALUE(Marketing[MntFruits]))
+Spend Meat = SUMX(Marketing, VALUE(Marketing[MntMeatProducts]))
+Spend Fish = SUMX(Marketing, VALUE(Marketing[MntFishProducts]))
+Spend Sweet = SUMX(Marketing, VALUE(Marketing[MntSweetProducts]))
+Spend Gold = SUMX(Marketing, VALUE(Marketing[MntGoldProds]))
 
 Top Product by Spend =
 VAR vW = [Spend Wines]
@@ -77,8 +77,8 @@ RETURN
     )
 
 // Channels underperforming
-Store Share = AVERAGE(Marketing[Share_Store])
-Catalog Share = AVERAGE(Marketing[Share_Catalog])
+Store Share = AVERAGEX(Marketing, VALUE(Marketing[Share_Store]))
+Catalog Share = AVERAGEX(Marketing, VALUE(Marketing[Share_Catalog]))
 
 Underperforming Channel =
 VAR web = [Web Conversion Rate]
@@ -92,14 +92,37 @@ RETURN
         "Catalog"
     )
 
+// Disconnected dimension for correlation visual (Q1)
+DimFactors =
+DATATABLE(
+    "Factor", STRING,
+    "Order", INTEGER,
+    {
+        { "Web Visits", 1 },
+        { "Income", 2 },
+        { "Total Spend", 3 }
+    }
+)
+
+Correlation Value =
+VAR f = SELECTEDVALUE(DimFactors[Factor])
+RETURN
+    SWITCH(
+        TRUE(),
+        f = "Web Visits", [Corr(WebPurchases, WebVisits)],
+        f = "Income", [Corr(WebPurchases, Income)],
+        f = "Total Spend", [Corr(WebPurchases, TotalSpend)],
+        BLANK()
+    )
+
 // Correlations with Web Purchases (Pearson)
 Corr(WebPurchases, WebVisits) =
 VAR n = COUNTROWS(Marketing)
-VAR sumEX = SUM(Marketing[NumWebPurchases])
-VAR sumY = SUM(Marketing[NumWebVisitsMonth])
-VAR sumXY = SUMX(Marketing, Marketing[NumWebPurchases] * Marketing[NumWebVisitsMonth])
-VAR sumX2 = SUMX(Marketing, Marketing[NumWebPurchases] * Marketing[NumWebPurchases])
-VAR sumY2 = SUMX(Marketing, Marketing[NumWebVisitsMonth] * Marketing[NumWebVisitsMonth])
+VAR sumEX = SUMX(Marketing, VALUE(Marketing[NumWebPurchases]))
+VAR sumY = SUMX(Marketing, VALUE(Marketing[NumWebVisitsMonth]))
+VAR sumXY = SUMX(Marketing, VALUE(Marketing[NumWebPurchases]) * VALUE(Marketing[NumWebVisitsMonth]))
+VAR sumX2 = SUMX(Marketing, VALUE(Marketing[NumWebPurchases]) * VALUE(Marketing[NumWebPurchases]))
+VAR sumY2 = SUMX(Marketing, VALUE(Marketing[NumWebVisitsMonth]) * VALUE(Marketing[NumWebVisitsMonth]))
 RETURN DIVIDE(
     (n * sumXY) - (sumEX * sumY),
     SQRT( ((n * sumX2) - (sumEX * sumEX)) * ((n * sumY2) - (sumY * sumY)) )
@@ -107,11 +130,11 @@ RETURN DIVIDE(
 
 Corr(WebPurchases, Income) =
 VAR n = COUNTROWS(Marketing)
-VAR sumEX = SUM(Marketing[NumWebPurchases])
-VAR sumY = SUM(Marketing[Income])
-VAR sumXY = SUMX(Marketing, Marketing[NumWebPurchases] * Marketing[Income])
-VAR sumX2 = SUMX(Marketing, Marketing[NumWebPurchases] * Marketing[NumWebPurchases])
-VAR sumY2 = SUMX(Marketing, Marketing[Income] * Marketing[Income])
+VAR sumEX = SUMX(Marketing, VALUE(Marketing[NumWebPurchases]))
+VAR sumY = SUMX(Marketing, VALUE(Marketing[Income]))
+VAR sumXY = SUMX(Marketing, VALUE(Marketing[NumWebPurchases]) * VALUE(Marketing[Income]))
+VAR sumX2 = SUMX(Marketing, VALUE(Marketing[NumWebPurchases]) * VALUE(Marketing[NumWebPurchases]))
+VAR sumY2 = SUMX(Marketing, VALUE(Marketing[Income]) * VALUE(Marketing[Income]))
 RETURN DIVIDE(
     (n * sumXY) - (sumEX * sumY),
     SQRT( ((n * sumX2) - (sumEX * sumEX)) * ((n * sumY2) - (sumY * sumY)) )
@@ -119,15 +142,28 @@ RETURN DIVIDE(
 
 Corr(WebPurchases, TotalSpend) =
 VAR n = COUNTROWS(Marketing)
-VAR sumEX = SUM(Marketing[NumWebPurchases])
-VAR sumY = [Total Spend]
-VAR sumXY = SUMX(Marketing, Marketing[NumWebPurchases] *
-    (Marketing[MntWines] + Marketing[MntFruits] + Marketing[MntMeatProducts] + Marketing[MntFishProducts] + Marketing[MntSweetProducts] + Marketing[MntGoldProds]))
-VAR sumX2 = SUMX(Marketing, Marketing[NumWebPurchases] * Marketing[NumWebPurchases])
+VAR sumEX = SUMX(Marketing, VALUE(Marketing[NumWebPurchases]))
+VAR sumY =
+    SUMX(
+        Marketing,
+        VALUE(Marketing[MntWines]) + VALUE(Marketing[MntFruits]) + VALUE(Marketing[MntMeatProducts]) +
+        VALUE(Marketing[MntFishProducts]) + VALUE(Marketing[MntSweetProducts]) + VALUE(Marketing[MntGoldProds])
+    )
+VAR sumXY =
+    SUMX(
+        Marketing,
+        VALUE(Marketing[NumWebPurchases]) *
+        (VALUE(Marketing[MntWines]) + VALUE(Marketing[MntFruits]) + VALUE(Marketing[MntMeatProducts]) +
+         VALUE(Marketing[MntFishProducts]) + VALUE(Marketing[MntSweetProducts]) + VALUE(Marketing[MntGoldProds]))
+    )
+VAR sumX2 = SUMX(Marketing, VALUE(Marketing[NumWebPurchases]) * VALUE(Marketing[NumWebPurchases]))
 VAR sumY2 =
-    SUMX(Marketing,
-        (Marketing[MntWines] + Marketing[MntFruits] + Marketing[MntMeatProducts] + Marketing[MntFishProducts] + Marketing[MntSweetProducts] + Marketing[MntGoldProds]) *
-        (Marketing[MntWines] + Marketing[MntFruits] + Marketing[MntMeatProducts] + Marketing[MntFishProducts] + Marketing[MntSweetProducts] + Marketing[MntGoldProds])
+    SUMX(
+        Marketing,
+        VAR t =
+            VALUE(Marketing[MntWines]) + VALUE(Marketing[MntFruits]) + VALUE(Marketing[MntMeatProducts]) +
+            VALUE(Marketing[MntFishProducts]) + VALUE(Marketing[MntSweetProducts]) + VALUE(Marketing[MntGoldProds])
+        RETURN t * t
     )
 RETURN DIVIDE(
     (n * sumXY) - (sumEX * sumY),

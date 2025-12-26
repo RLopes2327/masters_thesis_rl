@@ -17,27 +17,19 @@
             {
               "field": {
                 "Column": {
-                  "Expression": { "SourceRef": { "Entity": "Marketing" } },
-                  "Property": "Category"
+                  "Expression": { "SourceRef": { "Entity": "DimFactors" } },
+                  "Property": "Factor"
                 }
               },
-              "queryRef": "Marketing.Category"
+              "queryRef": "DimFactors.Factor"
             }
           ]
         },
         "Y": {
           "projections": [
             {
-              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Marketing" } }, "Property": "Corr(WebPurchases, WebVisits)" } },
-              "queryRef": "Marketing.CorrWebVisits"
-            },
-            {
-              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Marketing" } }, "Property": "Corr(WebPurchases, Income)" } },
-              "queryRef": "Marketing.CorrIncome"
-            },
-            {
-              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Marketing" } }, "Property": "Corr(WebPurchases, TotalSpend)" } },
-              "queryRef": "Marketing.CorrTotalSpend"
+              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Marketing" } }, "Property": "Correlation Value" } },
+              "queryRef": "Marketing.CorrelationValue"
             }
           ]
         }
