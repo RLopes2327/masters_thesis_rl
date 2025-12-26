@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
   "name": "chart_y5z6a7b8",
   "position": {
-    "x": 620,
-    "y": 420,
-    "z": 0,
-    "width": 600,
-    "height": 400
+    "x": 650,
+    "y": 180,
+    "z": 1006,
+    "width": 310,
+    "height": 260
   },
   "visual": {
     "visualType": "pieChart",

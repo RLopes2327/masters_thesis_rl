@@ -3,10 +3,10 @@
   "name": "kpi_i9j0k1l2",
   "position": {
     "x": 630,
-    "y": 830,
-    "z": 0,
+    "y": 10,
+    "z": 1002,
     "width": 300,
-    "height": 150
+    "height": 160
   },
   "visual": {
     "visualType": "card",
