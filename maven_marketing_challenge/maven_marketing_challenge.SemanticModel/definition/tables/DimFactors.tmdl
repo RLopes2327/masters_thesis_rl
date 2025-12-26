@@ -1,0 +1,36 @@
+table DimFactors
+	lineageTag: 5950baae-f1ca-4bb9-955e-98815f3d75f1
+
+	column Factor
+		lineageTag: a9159eaa-b967-4b03-ae63-7d397fc1ee37
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Factor]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Order
+		formatString: 0
+		lineageTag: 2f7eea63-be3f-44bc-b6fe-ab6788bd4cc4
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Order]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimFactors = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				    "Factor", STRING,
+				    "Order", INTEGER,
+				    {
+				        { "Web Visits", 1 },
+				        { "Income", 2 },
+				        { "Total Spend", 3 }
+				    }
+				)
+
+	annotation PBI_Id = 59f3c98eb61540338e61ab3a1ffffa71
+

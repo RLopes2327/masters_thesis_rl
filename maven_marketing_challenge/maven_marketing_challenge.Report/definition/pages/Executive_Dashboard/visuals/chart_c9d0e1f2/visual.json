@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.7.0/schema.json",
   "name": "chart_c9d0e1f2",
   "position": {
     "x": 970,
     "y": 180,
     "z": 1007,
-    "width": 300,
-    "height": 260
+    "height": 260,
+    "width": 300
   },
   "visual": {
     "visualType": "clusteredColumnChart",
@@ -17,58 +17,54 @@
             {
               "field": {
                 "Column": {
-                  "Expression": { "SourceRef": { "Entity": "DimFactors" } },
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimFactors"
+                    }
+                  },
                   "Property": "Factor"
                 }
               },
-              "queryRef": "DimFactors.Factor"
+              "queryRef": "DimFactors.Factor",
+              "active": true
             }
           ]
         },
         "Y": {
           "projections": [
             {
-              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Marketing" } }, "Property": "Correlation Value" } },
-              "queryRef": "Marketing.CorrelationValue"
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Marketing"
+                    }
+                  },
+                  "Property": "Correlation Value"
+                }
+              },
+              "queryRef": "Marketing.CorrelationValue",
+              "nativeQueryRef": "Correlation Value"
             }
           ]
         }
       }
     },
     "objects": {
-      "title": [
-        {
-          "properties": {
-            "show": { "expr": { "Literal": { "Value": "true" } } },
-            "text": { "expr": { "Literal": { "Value": "'Q1: Factors Related to Web Purchases'" } } },
-            "fontSize": { "expr": { "Literal": { "Value": "12D" } } },
-            "fontColor": { "solid": { "color": { "expr": { "Literal": { "Value": "'#333333'" } } } } }
-          }
-        }
-      ],
-      "border": [
-        {
-          "properties": {
-            "show": { "expr": { "Literal": { "Value": "true" } } },
-            "color": { "solid": { "color": { "expr": { "Literal": { "Value": "'#FFFFFF'" } } } } },
-            "radius": { "expr": { "Literal": { "Value": "8D" } } }
-          }
-        }
-      ],
-      "dropShadow": [
-        {
-          "properties": {
-            "show": { "expr": { "Literal": { "Value": "true" } } },
-            "color": { "solid": { "color": { "expr": { "Literal": { "Value": "'#000000'" } } } } },
-            "transparency": { "expr": { "Literal": { "Value": "85D" } } },
-            "blur": { "expr": { "Literal": { "Value": "8D" } } }
-          }
-        }
-      ],
       "dataPoint": [
         {
           "properties": {
-            "fill": { "solid": { "color": { "expr": { "Literal": { "Value": "'#1F77B4'" } } } } }
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#1F77B4'"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       ]

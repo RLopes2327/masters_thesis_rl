@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.7.0/schema.json",
   "name": "kpi_a1b2c3d4",
   "position": {
     "x": 10,
     "y": 10,
     "z": 1000,
-    "width": 300,
-    "height": 160
+    "height": 160,
+    "width": 300
   },
   "visual": {
     "visualType": "card",
@@ -15,7 +15,16 @@
         "Values": {
           "projections": [
             {
-              "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Marketing" } }, "Property": "Total Customers" } },
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Marketing"
+                    }
+                  },
+                  "Property": "Total Customers"
+                }
+              },
               "queryRef": "Marketing.TotalCustomers"
             }
           ]
@@ -26,27 +35,24 @@
       "labels": [
         {
           "properties": {
-            "color": { "solid": { "color": { "expr": { "Literal": { "Value": "'#1F77B4'" } } } } },
-            "fontSize": { "expr": { "Literal": { "Value": "28D" } } }
-          }
-        }
-      ],
-      "border": [
-        {
-          "properties": {
-            "show": { "expr": { "Literal": { "Value": "true" } } },
-            "radius": { "expr": { "Literal": { "Value": "8D" } } },
-            "color": { "solid": { "color": { "expr": { "Literal": { "Value": "'#FFFFFF'" } } } } }
-          }
-        }
-      ],
-      "dropShadow": [
-        {
-          "properties": {
-            "show": { "expr": { "Literal": { "Value": "true" } } },
-            "blur": { "expr": { "Literal": { "Value": "8D" } } },
-            "color": { "solid": { "color": { "expr": { "Literal": { "Value": "'#000000'" } } } } },
-            "transparency": { "expr": { "Literal": { "Value": "85D" } } }
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#1F77B4'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "28D"
+                }
+              }
+            }
           }
         }
       ]

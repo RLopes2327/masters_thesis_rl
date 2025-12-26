@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.7.0/schema.json",
   "name": "chart_q7r8s9t0",
   "position": {
     "x": 10,
     "y": 180,
     "z": 1004,
-    "width": 300,
-    "height": 260
+    "height": 260,
+    "width": 300
   },
   "visual": {
     "visualType": "clusteredColumnChart",
@@ -14,43 +14,87 @@
       "queryState": {
         "Y": {
           "projections": [
-            { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Marketing" } }, "Property": "Spend Wines" } }, "queryRef": "Marketing.SpendWines" },
-            { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Marketing" } }, "Property": "Spend Meat" } }, "queryRef": "Marketing.SpendMeat" },
-            { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Marketing" } }, "Property": "Spend Fish" } }, "queryRef": "Marketing.SpendFish" },
-            { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Marketing" } }, "Property": "Spend Fruits" } }, "queryRef": "Marketing.SpendFruits" },
-            { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Marketing" } }, "Property": "Spend Sweet" } }, "queryRef": "Marketing.SpendSweet" },
-            { "field": { "Measure": { "Expression": { "SourceRef": { "Entity": "Marketing" } }, "Property": "Spend Gold" } }, "queryRef": "Marketing.SpendGold" }
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Marketing"
+                    }
+                  },
+                  "Property": "Spend Wines"
+                }
+              },
+              "queryRef": "Marketing.SpendWines"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Marketing"
+                    }
+                  },
+                  "Property": "Spend Meat"
+                }
+              },
+              "queryRef": "Marketing.SpendMeat"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Marketing"
+                    }
+                  },
+                  "Property": "Spend Fish"
+                }
+              },
+              "queryRef": "Marketing.SpendFish"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Marketing"
+                    }
+                  },
+                  "Property": "Spend Fruits"
+                }
+              },
+              "queryRef": "Marketing.SpendFruits"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Marketing"
+                    }
+                  },
+                  "Property": "Spend Sweet"
+                }
+              },
+              "queryRef": "Marketing.SpendSweet"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Marketing"
+                    }
+                  },
+                  "Property": "Spend Gold"
+                }
+              },
+              "queryRef": "Marketing.SpendGold"
+            }
           ]
         }
       }
-    },
-    "objects": {
-      "title": [
-        {
-          "properties": {
-            "show": { "expr": { "Literal": { "Value": "true" } } },
-            "text": { "expr": { "Literal": { "Value": "'Q4: Which Products Are Performing Best?'" } } },
-            "fontSize": { "expr": { "Literal": { "Value": "12D" } } },
-            "fontColor": { "solid": { "color": { "expr": { "Literal": { "Value": "'#333333'" } } } } }
-          }
-        }
-      ],
-      "border": [
-        {
-          "properties": {
-            "show": { "expr": { "Literal": { "Value": "true" } } },
-            "radius": { "expr": { "Literal": { "Value": "8D" } } }
-          }
-        }
-      ],
-      "dropShadow": [
-        {
-          "properties": {
-            "show": { "expr": { "Literal": { "Value": "true" } } },
-            "blur": { "expr": { "Literal": { "Value": "8D" } } }
-          }
-        }
-      ]
     }
   }
 }
