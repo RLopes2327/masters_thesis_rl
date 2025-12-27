@@ -25,7 +25,8 @@
                   "Property": "Channel"
                 }
               },
-              "queryRef": "DimChannels.Channel"
+              "queryRef": "DimChannels.Channel",
+              "active": true
             }
           ]
         },
