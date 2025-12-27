@@ -9,10 +9,27 @@
     "width": 300
   },
   "visual": {
-    "visualType": "pieChart",
+    "visualType": "donutChart",
     "query": {
       "queryState": {
-        "Values": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimChannels"
+                    }
+                  },
+                  "Property": "Channel"
+                }
+              },
+              "queryRef": "DimChannels.Channel"
+            }
+          ]
+        },
+        "Y": {
           "projections": [
             {
               "field": {
@@ -22,36 +39,10 @@
                       "Entity": "Marketing"
                     }
                   },
-                  "Property": "Web Purchases"
+                  "Property": "Channel Purchases"
                 }
               },
-              "queryRef": "Marketing.Web"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Marketing"
-                    }
-                  },
-                  "Property": "Catalog Purchases"
-                }
-              },
-              "queryRef": "Marketing.Catalog"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Marketing"
-                    }
-                  },
-                  "Property": "Store Purchases"
-                }
-              },
-              "queryRef": "Marketing.Store"
+              "queryRef": "Marketing.ChannelPurchases"
             }
           ]
         }
