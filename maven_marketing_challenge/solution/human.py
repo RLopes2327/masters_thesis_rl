@@ -1,82 +1,85 @@
 # %%
 import pandas as pd
 
-# %%
-df = pd.read_csv("marketing_data.csv")
+def run_pipeline():
 
-# %%
-df
+    # %%
+    df = pd.read_csv("marketing_data.csv")
 
-# %%
-df.info()
+    # %%
+    df
 
-# %%
-#24 missing in income so instead of removing roes lets replace by median for income for missing values
+    # %%
+    df.info()
 
-# %%
-# clean up column names that contain whitespace
-df.columns = df.columns.str.replace(' ', '')
+    # %%
+    #24 missing in income so instead of removing roes lets replace by median for income for missing values
 
-# %%
-df['Income'] = df['Income'].fillna(df['Income'].median())
+    # %%
+    # clean up column names that contain whitespace
+    df.columns = df.columns.str.replace(' ', '')
 
-# %%
-df = df[df['Year_Birth'] > 1900].reset_index(drop=True)
+    # %%
+    df['Income'] = df['Income'].fillna(df['Income'].median())
 
-df['Year_Birth'].plot(kind='box', patch_artist=True);
+    # %%
+    df = df[df['Year_Birth'] > 1900].reset_index(drop=True)
 
-# %%
-df['Dt_Customer'] = pd.to_datetime(df['Dt_Customer'])
+    df['Year_Birth'].plot(kind='box', patch_artist=True);
 
-# %%
-# Dependents
-df['Dependents'] = df['Kidhome'] + df['Teenhome']
+    # %%
+    df['Dt_Customer'] = pd.to_datetime(df['Dt_Customer'])
 
-# Year becoming a Customer
-df['Year_Customer'] = pd.DatetimeIndex(df['Dt_Customer']).year
+    # %%
+    # Dependents
+    df['Dependents'] = df['Kidhome'] + df['Teenhome']
 
-# Total Amount Spent
-mnt_cols = [col for col in df.columns if 'Mnt' in col]
-df['TotalMnt'] = df[mnt_cols].sum(axis=1)
+    # Year becoming a Customer
+    df['Year_Customer'] = pd.DatetimeIndex(df['Dt_Customer']).year
 
-# Total Purchases
-purchases_cols = [col for col in df.columns if 'Purchases' in col]
-df['TotalPurchases'] = df[purchases_cols].sum(axis=1)
+    # Total Amount Spent
+    mnt_cols = [col for col in df.columns if 'Mnt' in col]
+    df['TotalMnt'] = df[mnt_cols].sum(axis=1)
 
-# Total Campaigns Accepted
-campaigns_cols = [col for col in df.columns if 'Cmp' in col] + ['Response'] # 'Response' is for the latest campaign
-df['TotalCampaignsAcc'] = df[campaigns_cols].sum(axis=1)
+    # Total Purchases
+    purchases_cols = [col for col in df.columns if 'Purchases' in col]
+    df['TotalPurchases'] = df[purchases_cols].sum(axis=1)
 
-
-
-# %%
-# view new features, by customer ID
-df[['ID', 'Dependents', 'Year_Customer', 'TotalMnt', 'TotalPurchases', 'TotalCampaignsAcc']].head()
-
-# %%
-df
-
-# %%
-df.to_csv("marketing.csv")
-
-# %%
-df['TotalPurchases'].sum()
-
-# %%
-df['NumWebVisitsMonth']
-
-# %%
-len(df['ID'].unique())
-
-# %%
-- Campaign success
-- Mode of Purchase
-- Demographics - Age, Income, Marital status,Educartion
-- campaign sales Trend over time
-- Recency vs sUCCESS
-- COUNTRY VS SUCCESS
-
-# %%
+    # Total Campaigns Accepted
+    campaigns_cols = [col for col in df.columns if 'Cmp' in col] + ['Response'] # 'Response' is for the latest campaign
+    df['TotalCampaignsAcc'] = df[campaigns_cols].sum(axis=1)
 
 
+
+    # %%
+    # view new features, by customer ID
+    df[['ID', 'Dependents', 'Year_Customer', 'TotalMnt', 'TotalPurchases', 'TotalCampaignsAcc']].head()
+
+    # %%
+    df
+
+    # %%
+    df.to_csv("marketing.csv")
+
+    # %%
+    df['TotalPurchases'].sum()
+
+    # %%
+    df['NumWebVisitsMonth']
+
+    # %%
+    len(df['ID'].unique())
+
+    # %%
+    # - Campaign success
+    # - Mode of Purchase
+    # - Demographics - Age, Income, Marital status,Educartion
+    # - campaign sales Trend over time
+    # - Recency vs sUCCESS
+    # - COUNTRY VS SUCCESS
+
+    # %%
+
+if __name__ == "__main__":
+    run_pipeline()
 
